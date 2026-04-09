@@ -1,5 +1,2 @@
-
-
-public class TrainConsistManagementApp {
-
+class TrainConsistManagementAppTest { 
 }
