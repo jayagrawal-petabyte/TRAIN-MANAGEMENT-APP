@@ -1,4 +1,8 @@
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import java.util.regex.Pattern;
 
@@ -55,5 +59,28 @@ class TrainConsistManagementAppTest {
     void testRegex_ExactPatternMatch() {
         assertFalse(trainPattern.matcher("TRN-1234XYZ").matches());
         assertFalse(cargoPattern.matcher("PET-AB12").matches());
+        // Create bogie list
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("Sleeper", 70));
+        bogies.add(new Bogie("First Class", 24));
+
+        // Calculate total seating capacity using reduce
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
+
+        // Display result
+        System.out.println("\nTotal Seating Capacity: " + totalSeats);
+        // Group bogies by type (name)
+        Map<String, List<Bogie>> groupedBogies = bogies.stream()
+                .collect(Collectors.groupingBy(b -> b.name));
+
+        // Display grouped bogies
+        System.out.println("\nGrouped Bogies:");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
     }
 }
