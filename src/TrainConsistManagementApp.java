@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,13 @@ public class TrainConsistManagementApp {
         bogies.add(new Bogie("Sleeper", 70));
         bogies.add(new Bogie("First Class", 24));
 
+        // Calculate total seating capacity using reduce
+        int totalSeats = bogies.stream()
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
+
+        // Display result
+        System.out.println("\nTotal Seating Capacity: " + totalSeats);
         // Group bogies by type (name)
         Map<String, List<Bogie>> groupedBogies = bogies.stream()
                 .collect(Collectors.groupingBy(b -> b.name));
